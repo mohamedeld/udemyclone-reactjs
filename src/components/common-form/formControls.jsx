@@ -7,6 +7,8 @@ import { Textarea } from '../ui/textarea';
 const FormControls = ({ formControls, formData, setFormData }) => {
   function renderComponentByType(controlItem) {
     let element = null;
+    const value = formData[controlItem?.name] || ''
+
     switch (controlItem?.componentType) {
       case 'input':
         element = (
@@ -15,12 +17,27 @@ const FormControls = ({ formControls, formData, setFormData }) => {
             name={controlItem?.name}
             placeholder={controlItem?.placeholder}
             type={controlItem?.type}
+            value={value}
+            onChange={(e)=>{
+              setFormData({
+                ...formData,
+                [controlItem?.name]:e.target.value
+              })
+            }}
           />
         );
         break;
       case 'select':
         element = (
-          <Select>
+          <Select
+          onValueChange={(value)=>{
+            setFormData({
+              ...formData,
+              [controlItem?.name]:value
+            })
+          }}
+          value={value}
+          >
             <SelectTrigger className="w-full">
               <SelectValue placeholder={controlItem?.placeholder} />
             </SelectTrigger>
@@ -45,6 +62,13 @@ const FormControls = ({ formControls, formData, setFormData }) => {
             name={controlItem?.name}
             placeholder={controlItem?.placeholder}
             type={controlItem?.type}
+            value={value}
+            onChange={(e)=>{
+              setFormData({
+                ...formData,
+                [controlItem?.name]:e.target.value
+              })
+            }}
           />
         );
         break;
@@ -54,6 +78,13 @@ const FormControls = ({ formControls, formData, setFormData }) => {
         name={controlItem?.name}
         placeholder={controlItem?.placeholder}
         type={controlItem?.type}
+        value={value}
+            onChange={(e)=>{
+              setFormData({
+                ...formData,
+                [controlItem?.name]:e.target.value
+              })
+            }}
         />;
         break;
     }
