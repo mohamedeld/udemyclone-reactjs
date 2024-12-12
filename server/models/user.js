@@ -1,7 +1,7 @@
-import mongoose,{Schema,model,models} from "mongoose"
+import mongoose from "mongoose"
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken"
-const userSchema = new Schema({
+const userSchema = new mongoose.Schema({
   username:{
     type:String,
     required:[true,"user name is required"]
@@ -37,5 +37,5 @@ userSchema.methods.generateToken = function(){
   return token;
 }
 
-const User = models("User") || model("User",userSchema);
+const User = mongoose.models.User || mongoose.model("User",userSchema);
 export default User;
